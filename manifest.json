@@ -1,0 +1,25 @@
+{
+    "name": "#ProgramadorFitness",
+    "short_name": "#ProgramadorFitness",
+    "description": "Bienvenid@s a #ProgramadorFitness, serie de videos, donde te daré consejos para llevar una vida saludable y evitar el sedentarismo. Recuerda... mente sana cuerpo sano :)",
+    "background_color": "#2B2B2B",
+    "theme_color": "#F0DB4F",
+    "orientation_description": "portrait vertical, landscape horizontal, browser muestra toda la interfaz del navegador",
+    "orientation": "portrait",
+    "display": "standalone",
+    "start_url": "./?utm_source=web_app_manifest",
+    "scope": "./",
+    "lang": "es-MX",
+    "icons": [
+        {
+            "src": "./ProgramadorFitness.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        },
+        {
+            "src": "./ProgramadorFitness.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

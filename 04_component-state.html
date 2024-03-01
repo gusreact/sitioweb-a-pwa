@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Component state</title>
+    </head>
+    <body>
+        <h1>Component state</h1>
+        <form id="todo-form">
+            <input type="text" id="todo-item" placeholder="Task to do">
+            <input type="submit" value="Add">
+        </form>
+        <h2>Task list</h2>
+        <ul id="todo-list"></ul>
+        <script>
+            const d = document;
+            //Global state
+            const state = {
+                todoList:[],
+                name: ""
+            }
+
+            //Template UI
+            const template = () => {
+                if(template.state.todoList.length < 1){
+                    return `<p><em>Lista sin tareas por hacer.</em></p>`;
+                }
+                let todos = template.state.todoList.map(item => `<li>${item}</li>`).join("");
+                return todos;
+            }
+
+            //Add state to template (local state)
+            template.state = {
+                todoList: []
+            };
+            //Render UI
+            const render = () => {
+                console.log("Global state:", state);
+                console.log("Local state:", template.state);
+                const $list = d.getElementById("todo-list");
+                if(!$list) return;
+                $list.innerHTML = template();
+            }
+
+            const setState = obj => {
+                for(let key in obj){
+                    if(template.state.hasOwnProperty(key)){
+                        template.state[key] = obj[key];
+                    }
+                }
+                render();
+            }
+
+            //JSON.parse convierte un string en formato JSON a un objeto JSON
+            //JSON.stringify convierte un objeto JSON a un string en formato JSON
+            const getState = () => JSON.parse(JSON.stringify(template.state));
+
+            d.addEventListener("DOMContentLoaded", render);
+
+            //Set default values
+            setState({
+                todoList:["Task 1", "Task 2", "Task 3"]
+            })
+
+            d.addEventListener("submit", e=>{
+                if(!e.target.matches("#todo-form")) return false;
+                e.preventDefault();
+                const $item = d.getElementById("todo-item");
+                const lastState = getState();
+                if(!$item) return;
+                //Mala práctica porque el estado es inmutable
+                lastState.todoList.push($item.value);
+                setState({todoList: lastState.todoList});
+                $item.value = "";
+                $item.focus();
+            })            
+        </script>
+    </body>
+</html>
